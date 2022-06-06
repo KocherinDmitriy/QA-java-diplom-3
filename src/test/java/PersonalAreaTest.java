@@ -1,8 +1,10 @@
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
+import org.junit.After;
 import org.junit.Test;
+import unils.DeleteUser;
 import unils.pageobjectmodels.HomePage;
 import unils.pageobjectmodels.PersonalAreaPage;
 
@@ -24,5 +26,11 @@ public class PersonalAreaTest {
         homePage.enterButtonAuth.click();
         homePage.personalArea.shouldBe(Condition.visible).click();
         webdriver().shouldHave(url(PersonalAreaPage.PERSONAL_AREA_PAGE_URL));
+    }
+    @After
+    public void teardown() {
+        Selenide.closeWindow();
+        Selenide.closeWebDriver();
+        DeleteUser.sendDeleteRequestUser();
     }
 }

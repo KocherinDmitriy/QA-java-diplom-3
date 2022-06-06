@@ -1,6 +1,7 @@
 package unils;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
+import unils.pojo.CreateUserResponse;
 
 import java.util.ArrayList;
 
@@ -9,8 +10,8 @@ import static io.restassured.RestAssured.given;
 public class CreateUser {
 
 
-    public static Response sendPostRequestCreateUser(String email, String password, String name) {
-        Response response = given()
+    public static void sendPostRequestCreateUser(String email, String password, String name) {
+            given()
                 .header("Content-type", "application/json")
                 .and()
                 .body("{\"email\":\"" + email + "\","
@@ -19,7 +20,8 @@ public class CreateUser {
                 .when()
                 .post("https://stellarburgers.nomoreparties.site/api/auth/register");
         ;
-        return response;
+
+
     }
 
     static String login = String.format("%s@gmail.com", RandomStringUtils.randomAlphabetic(10));

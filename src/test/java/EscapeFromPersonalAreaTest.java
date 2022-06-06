@@ -1,12 +1,12 @@
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Test;
+import unils.CreateUser;
 import unils.pageobjectmodels.AuthPage;
 import unils.AuthUser;
+import unils.DeleteUser;
 import unils.pageobjectmodels.HomePage;
 import unils.pageobjectmodels.PersonalAreaPage;
 
@@ -41,6 +41,8 @@ public class EscapeFromPersonalAreaTest {
 
         PersonalAreaPage personalAreaPage = open(AuthUser.enterToPersonalAreaWithNewUser(), PersonalAreaPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
+        System.out.println(CreateUser.getLogin());
+        System.out.println(CreateUser.getPassword());
         personalAreaPage.exitButton.click();
         webdriver().shouldHave(url(AuthPage.AUTH_PAGE_URL));
     }
@@ -48,5 +50,6 @@ public class EscapeFromPersonalAreaTest {
     public void teardown() {
         Selenide.closeWindow();
         Selenide.closeWebDriver();
+        DeleteUser.sendDeleteRequestUser();
     }
 }

@@ -7,6 +7,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
+import unils.DeleteUser;
+import unils.DeleteUserCreatedViaUI;
 import unils.pageobjectmodels.RegistrationPage;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -38,7 +40,6 @@ public class RegistrationTest {
 
         String email = String.format("%s@gmail.com", RandomStringUtils.randomAlphabetic(10));
         String password = RandomStringUtils.randomAlphabetic(10);
-        String incorrectPassword = RandomStringUtils.randomAlphabetic(5);
         String name = RandomStringUtils.randomAlphabetic(10);
         RegistrationPage registrationPage= open (RegistrationPage.REGISTRATION_PAGE_URL,RegistrationPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
@@ -46,8 +47,13 @@ public class RegistrationTest {
         registrationPage.registrationFields.get(1).setValue(email);
         registrationPage.registrationFields.get(2).setValue(password);
         registrationPage.buttonRegistration.click();
+        registrationPage.registrationFields.get(0).setValue(email);
+        registrationPage.registrationFields.get(1).setValue(password);
+        registrationPage.buttonRegistration.click();
         registrationPage.lableEnter.shouldBe(Condition.visible);
         Assert.assertEquals(registrationPage.AUTH_PAGE_URL,webdriver().driver().getCurrentFrameUrl());
+        DeleteUserCreatedViaUI.sendDeleteRequestUserFromUI(email,password);
+
 
     }
 

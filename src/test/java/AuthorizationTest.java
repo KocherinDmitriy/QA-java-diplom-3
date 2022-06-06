@@ -5,6 +5,7 @@ import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
+import unils.DeleteUser;
 import unils.pageobjectmodels.ForgotPasswordPage;
 import unils.pageobjectmodels.HomePage;
 import unils.pageobjectmodels.RegistrationPage;
@@ -14,6 +15,8 @@ import static unils.CreateUser.*;
 import static com.codeborne.selenide.WebDriverConditions.*;
 
 public class AuthorizationTest {
+
+
 
     @Test
     @DisplayName("Authorization from the Personal area page ")
@@ -27,6 +30,7 @@ public class AuthorizationTest {
         homePage.enterButtonAuth.click();
         homePage.lableBurger.shouldBe(Condition.visible);
         Assert.assertEquals(HomePage.HOME_PAGE_URL,webdriver().driver().getCurrentFrameUrl());
+
 
     }
     @Test
@@ -74,5 +78,6 @@ public class AuthorizationTest {
     public void teardown() {
         Selenide.closeWindow();
         Selenide.closeWebDriver();
+        DeleteUser.sendDeleteRequestUser();
     }
 }
