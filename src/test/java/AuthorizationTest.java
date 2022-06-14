@@ -4,7 +4,6 @@ import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import unils.DeleteUser;
 import unils.pageobjectmodels.ForgotPasswordPage;
@@ -17,14 +16,12 @@ import static com.codeborne.selenide.WebDriverConditions.*;
 
 public class AuthorizationTest {
 
-@Before
-public void start() {
- createUserMethod();
-}
+
 
     @Test
     @DisplayName("Authorization from the Personal area page ")
     public void homePagePersonalAreaAuthorization() {
+        createUserMethod();
         HomePage homePage = open (HomePage.HOME_PAGE_URL, HomePage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
         homePage.personalArea.click();
@@ -39,6 +36,7 @@ public void start() {
     @Test
     @DisplayName("Authorization from the Forgot password page ")
     public void forgotPageAuthorization(){
+        createUserMethod();
         ForgotPasswordPage forgotPasswordPage = open (ForgotPasswordPage.FORGOT_PASSWORD_PAGE_URL, ForgotPasswordPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
         forgotPasswordPage.enterButtonForgot.click();
@@ -51,6 +49,7 @@ public void start() {
     @Test
     @DisplayName("Authorization from the Registration page ")
     public void registrationPageAuthorization() {
+        createUserMethod();
         RegistrationPage registrationPage = open (RegistrationPage.REGISTRATION_PAGE_URL, RegistrationPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
         registrationPage.enterButtonRegistration.click();
@@ -63,6 +62,7 @@ public void start() {
     @Test
     @DisplayName("Authorization from the home page by button \"enter to account\"")
     public void homePageEnterButtonAuthorization() {
+        createUserMethod();
         HomePage homePage = open (HomePage.HOME_PAGE_URL, HomePage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
         homePage.enterAccount.click();
