@@ -7,27 +7,28 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-import unils.DeleteUser;
 import unils.DeleteUserCreatedViaUI;
 import unils.pageobjectmodels.RegistrationPage;
+
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationTest {
 
-
+    String email = String.format("%s@gmail.com", RandomStringUtils.randomAlphabetic(10));
+    String password = RandomStringUtils.randomAlphabetic(10);
+    String name = RandomStringUtils.randomAlphabetic(10);
+    String incorrectPassword = RandomStringUtils.randomAlphabetic(4);
 
     @Test
     @DisplayName("Registration with incorrect password 5 symbols")
     @Description("4 symbols in the password/allowed 6")
-    public void passwordValidation(){
-        String email = String.format("%s@gmail.com", RandomStringUtils.randomAlphabetic(10));
-        String name = RandomStringUtils.randomAlphabetic(10);
-        String incorrectPassword = RandomStringUtils.randomAlphabetic(4);
-        RegistrationPage registrationPage= open (RegistrationPage.REGISTRATION_PAGE_URL,RegistrationPage.class);
+    public void passwordValidation() {
+        password = incorrectPassword;
+        RegistrationPage registrationPage = open(RegistrationPage.REGISTRATION_PAGE_URL, RegistrationPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
         registrationPage.nameAndEmail.get(0).shouldBe(Condition.visible).setValue(name);
         registrationPage.nameAndEmail.get(1).shouldBe(Condition.visible).setValue(email);
-        registrationPage.nameAndEmail.get(2).shouldBe(Condition.visible).setValue(incorrectPassword);
+        registrationPage.nameAndEmail.get(2).shouldBe(Condition.visible).setValue(password);
         registrationPage.buttonRegistration.click();
         registrationPage.errorMessage.shouldBe(Condition.text("Некорректный пароль"));
 
@@ -36,12 +37,10 @@ public class RegistrationTest {
     @Test
     @DisplayName("Registration HappyPath")
     @Description("All criteria ar met")
-    public void confirmedRegistration()  {
+    public void confirmedRegistration() {
 
-        String email = String.format("%s@gmail.com", RandomStringUtils.randomAlphabetic(10));
-        String password = RandomStringUtils.randomAlphabetic(10);
-        String name = RandomStringUtils.randomAlphabetic(10);
-        RegistrationPage registrationPage= open (RegistrationPage.REGISTRATION_PAGE_URL,RegistrationPage.class);
+
+        RegistrationPage registrationPage = open(RegistrationPage.REGISTRATION_PAGE_URL, RegistrationPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
         registrationPage.registrationFields.get(0).setValue(name);
         registrationPage.registrationFields.get(1).setValue(email);
@@ -51,19 +50,18 @@ public class RegistrationTest {
         registrationPage.registrationFields.get(1).setValue(password);
         registrationPage.buttonRegistration.click();
         registrationPage.lableEnter.shouldBe(Condition.visible);
-        Assert.assertEquals(registrationPage.AUTH_PAGE_URL,webdriver().driver().getCurrentFrameUrl());
-        DeleteUserCreatedViaUI.sendDeleteRequestUserFromUI(email,password);
+        Assert.assertEquals(registrationPage.AUTH_PAGE_URL, webdriver().driver().getCurrentFrameUrl());
 
 
     }
-
 
 
     @After
     public void teardown() {
         Selenide.closeWindow();
         Selenide.closeWebDriver();
-        DeleteUser.sendDeleteRequestUser();
+        DeleteUserCreatedViaUI.sendDeleteRequestUserFromUI(email, password);
+
     }
 }
 

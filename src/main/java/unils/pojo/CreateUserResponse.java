@@ -1,8 +1,5 @@
 package unils.pojo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CreateUserResponse {
     private Boolean success;
     private String accessToken;
