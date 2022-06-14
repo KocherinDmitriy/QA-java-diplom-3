@@ -63,6 +63,7 @@ public class RegistrationTest {
     public void teardown() {
         Selenide.closeWindow();
         Selenide.closeWebDriver();
+        DeleteUser.sendDeleteRequestUser();
     }
 }
 
