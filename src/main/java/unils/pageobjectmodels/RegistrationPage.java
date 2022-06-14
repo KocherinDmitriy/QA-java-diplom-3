@@ -8,33 +8,52 @@ import org.openqa.selenium.support.How;
 
 public class RegistrationPage extends AuthPage {
 
-    public  static final String REGISTRATION_PAGE_URL="https://stellarburgers.nomoreparties.site/register";
+    public static final String REGISTRATION_PAGE_URL = "https://stellarburgers.nomoreparties.site/register";
 
     //Кнопка "Зарегестрироваться"
     @FindBy(how = How.XPATH, using = "//button[contains(@class,'button_button__33qZ0 ')]")
-    public SelenideElement buttonRegistration;
+    private SelenideElement buttonRegistration;
 
     //Список полей для регистрации
-    @FindAll(@FindBy(how = How.CLASS_NAME,using = "input__textfield"))
-    public ElementsCollection registrationFields;
+    @FindAll(@FindBy(how = How.CLASS_NAME, using = "input__textfield"))
+    private ElementsCollection registrationFields;
     //Сообщение об ошибке
-    @FindBy(how = How.CLASS_NAME,using = "input__error")
-    public SelenideElement errorMessage;
+    @FindBy(how = How.CLASS_NAME, using = "input__error")
+    private SelenideElement errorMessage;
 
     //Сообщение об ошибке
-    @FindBy(how = How.CLASS_NAME,using = "Auth_link__1fOlj")
-    public SelenideElement enterButtonRegistration;
+    @FindBy(how = How.CLASS_NAME, using = "Auth_link__1fOlj")
+    private SelenideElement enterButtonRegistration;
 
     //Личный кабинет
     @FindBy(how = How.XPATH, using = "//*[.='Личный Кабинет']")
-    public SelenideElement personalArea;
+    private SelenideElement personalArea;
     //Личный кабинет
     @FindAll(@FindBy(how = How.XPATH, using = "//div[contains(@class, 'input__container')]//input[contains(@class, 'input__textfield')]"))
-    public ElementsCollection nameAndEmail;
+    private ElementsCollection nameAndEmail;
 
   /*  //Пароль
     @FindBy(how = How.XPATH, using = "//div[contains(@class, 'input_type_password')]/input[contains(@class, 'input__textfield')]")
     public SelenideElement passwordField;*/
 
+    public void clickOnEnterButtonRegistration() {
+        enterButtonRegistration.click();
+    }
 
+    public void inputCredentialsRegistration(Integer num, String credential) {
+        registrationFields.get(num).setValue(credential);
+    }
+
+    public void clickOnButtonRegistration() {
+        buttonRegistration.click();
+    }
+    public String getTextErrorMessage() {
+        String text=errorMessage.getText();
+        return text;
+    }
+
+    public  void clickOnPersonalAreaButton() {
+        personalArea.click();
+    }
 }
+

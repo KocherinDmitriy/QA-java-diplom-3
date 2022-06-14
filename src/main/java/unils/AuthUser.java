@@ -17,14 +17,14 @@ public class AuthUser {
         createUserMethod();
         RegistrationPage registrationPage = open(RegistrationPage.REGISTRATION_PAGE_URL, RegistrationPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        registrationPage.registrationFields.get(0).setValue(name);
-        registrationPage.registrationFields.get(1).setValue(getLogin());
-        registrationPage.registrationFields.get(2).setValue(getPassword());
-        registrationPage.enterButtonRegistration.click();
-        registrationPage.autorizationFields.get(0).shouldBe(Condition.visible).setValue(getLogin());
-        registrationPage.autorizationFields.get(1).setValue(getPassword());
-        registrationPage.enterButtonAuth.click();
-        registrationPage.personalArea.click();
+        registrationPage.inputCredentialsRegistration(0, name);
+        registrationPage.inputCredentialsRegistration(1, getLogin());
+        registrationPage.inputCredentialsRegistration(2, getPassword());
+        registrationPage.clickOnEnterButtonRegistration();
+        registrationPage.inputCredentialsRegistration(0, getLogin());
+        registrationPage.inputCredentialsRegistration(1, getPassword());
+        registrationPage.clickOnEnterButton();
+        registrationPage.clickOnPersonalAreaButton();
 
         String url=webdriver().driver().getCurrentFrameUrl();
         return url;

@@ -30,10 +30,10 @@ public class AuthorizationTest {
     public void homePagePersonalAreaAuthorization() {
         HomePage homePage = open(HomePage.HOME_PAGE_URL, HomePage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        homePage.personalArea.click();
-        homePage.autorizationFields.get(0).setValue(getLogin());
-        homePage.autorizationFields.get(1).setValue(getPassword());
-        homePage.enterButtonAuth.click();
+        homePage.clickOnPersonalAreaButton();
+        homePage.inputCredentials(0,getLogin());
+        homePage.inputCredentials(1,getPassword());
+        homePage.clickOnEnterButton();
         homePage.lableBurger.shouldBe(Condition.visible);
         Assert.assertEquals(HomePage.HOME_PAGE_URL, webdriver().driver().getCurrentFrameUrl());
 
@@ -45,10 +45,10 @@ public class AuthorizationTest {
     public void forgotPageAuthorization() {
         ForgotPasswordPage forgotPasswordPage = open(ForgotPasswordPage.FORGOT_PASSWORD_PAGE_URL, ForgotPasswordPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        forgotPasswordPage.enterButtonForgot.click();
-        forgotPasswordPage.autorizationFields.get(0).setValue(getLogin());
-        forgotPasswordPage.autorizationFields.get(1).setValue(getPassword());
-        forgotPasswordPage.enterButtonAuth.click();
+        forgotPasswordPage.clickOnEnterButtonForgot();
+        forgotPasswordPage.inputCredentials(0,getLogin());
+        forgotPasswordPage.inputCredentials(1,getPassword());
+        forgotPasswordPage.clickOnEnterButton();
         webdriver().shouldHave(url(HomePage.HOME_PAGE_URL));
 
     }
@@ -58,10 +58,10 @@ public class AuthorizationTest {
     public void registrationPageAuthorization() {
         RegistrationPage registrationPage = open(RegistrationPage.REGISTRATION_PAGE_URL, RegistrationPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        registrationPage.enterButtonRegistration.click();
-        registrationPage.autorizationFields.get(0).setValue(getLogin());
-        registrationPage.autorizationFields.get(1).setValue(getPassword());
-        registrationPage.enterButtonAuth.click();
+        registrationPage.clickOnEnterButtonRegistration();
+        registrationPage.inputCredentials(0,getLogin());
+        registrationPage.inputCredentials(1,getPassword());
+        registrationPage.clickOnEnterButton();
         webdriver().shouldHave(url(HomePage.HOME_PAGE_URL));
 
     }
@@ -71,10 +71,10 @@ public class AuthorizationTest {
     public void homePageEnterButtonAuthorization() {
         HomePage homePage = open(HomePage.HOME_PAGE_URL, HomePage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        homePage.enterAccount.click();
-        homePage.autorizationFields.get(0).setValue(getLogin());
-        homePage.autorizationFields.get(1).setValue(getPassword());
-        homePage.enterButtonAuth.click();
+        homePage.clickOnEnterAccount();
+        homePage.inputCredentials(0,getLogin());
+        homePage.inputCredentials(1,getPassword());
+        homePage.clickOnEnterButton();
         homePage.lableBurger.shouldBe(Condition.visible);
         Assert.assertEquals(HomePage.HOME_PAGE_URL, webdriver().driver().getCurrentFrameUrl());
 

@@ -22,7 +22,7 @@ public class EscapeFromPersonalAreaTest {
 
         PersonalAreaPage personalAreaPage = open(AuthUser.enterToPersonalAreaWithNewUser(), PersonalAreaPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        personalAreaPage.constructorButton.click();
+        personalAreaPage.clickConstructorButton();
         webdriver().shouldHave(url(HomePage.HOME_PAGE_URL));
     }
 
@@ -32,7 +32,7 @@ public class EscapeFromPersonalAreaTest {
 
         PersonalAreaPage personalAreaPage = open(AuthUser.enterToPersonalAreaWithNewUser(), PersonalAreaPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        personalAreaPage.burgerLabel.click();
+        personalAreaPage.clickBurgerLabel();
         webdriver().shouldHave(url(HomePage.HOME_PAGE_URL));
     }
     @Test
@@ -41,9 +41,7 @@ public class EscapeFromPersonalAreaTest {
 
         PersonalAreaPage personalAreaPage = open(AuthUser.enterToPersonalAreaWithNewUser(), PersonalAreaPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        System.out.println(CreateUser.getLogin());
-        System.out.println(CreateUser.getPassword());
-        personalAreaPage.exitButton.click();
+        personalAreaPage.clickExitButton();
         webdriver().shouldHave(url(AuthPage.AUTH_PAGE_URL));
     }
     @After

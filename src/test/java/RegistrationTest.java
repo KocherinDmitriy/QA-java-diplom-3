@@ -26,12 +26,11 @@ public class RegistrationTest {
         password = incorrectPassword;
         RegistrationPage registrationPage = open(RegistrationPage.REGISTRATION_PAGE_URL, RegistrationPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        registrationPage.nameAndEmail.get(0).shouldBe(Condition.visible).setValue(name);
-        registrationPage.nameAndEmail.get(1).shouldBe(Condition.visible).setValue(email);
-        registrationPage.nameAndEmail.get(2).shouldBe(Condition.visible).setValue(password);
-        registrationPage.buttonRegistration.click();
-        registrationPage.errorMessage.shouldBe(Condition.text("Некорректный пароль"));
-
+        registrationPage.inputCredentialsRegistration(0, name);
+        registrationPage.inputCredentialsRegistration(1, email);
+        registrationPage.inputCredentialsRegistration(2, password);
+        registrationPage.clickOnButtonRegistration();
+        Assert.assertEquals(registrationPage.getTextErrorMessage(),"Некорректный пароль");
     }
 
     @Test
@@ -42,14 +41,14 @@ public class RegistrationTest {
 
         RegistrationPage registrationPage = open(RegistrationPage.REGISTRATION_PAGE_URL, RegistrationPage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        registrationPage.registrationFields.get(0).setValue(name);
-        registrationPage.registrationFields.get(1).setValue(email);
-        registrationPage.registrationFields.get(2).setValue(password);
-        registrationPage.buttonRegistration.click();
-        registrationPage.registrationFields.get(0).setValue(email);
-        registrationPage.registrationFields.get(1).setValue(password);
-        registrationPage.buttonRegistration.click();
-        registrationPage.lableEnter.shouldBe(Condition.visible);
+        registrationPage.inputCredentialsRegistration(0, name);
+        registrationPage.inputCredentialsRegistration(1, email);
+        registrationPage.inputCredentialsRegistration(2, password);
+        registrationPage.clickOnButtonRegistration();
+        registrationPage.inputCredentialsRegistration(0, email);
+        registrationPage.inputCredentialsRegistration(1, password);
+        registrationPage.clickOnButtonRegistration();
+        registrationPage.visibleLableEnter();
         Assert.assertEquals(registrationPage.AUTH_PAGE_URL, webdriver().driver().getCurrentFrameUrl());
 
 

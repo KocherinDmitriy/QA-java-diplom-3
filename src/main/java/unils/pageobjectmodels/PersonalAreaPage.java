@@ -8,18 +8,26 @@ public class PersonalAreaPage{
 
     //Текст "В этом разделе вы можете изменить свои персональные данные"
     @FindBy(how = How.XPATH, using = "//p[contains(@class, 'Account_text__fZAIn')]")
-    public SelenideElement blockWithText;
+    private SelenideElement blockWithText;
     //Иконка бургера
     @FindBy(how = How.XPATH, using = "//div[contains(@class, 'AppHeader_header__logo__2D0X2')]")
-    public SelenideElement burgerLabel;
+    private SelenideElement burgerLabel;
     //Кнопка "Конструктор"
     @FindBy(how = How.XPATH, using = "//*[.='Конструктор']")
-    public SelenideElement constructorButton;
+    private SelenideElement constructorButton;
     //Кнопка "Выход"
     @FindBy(how = How.XPATH, using = "//li[@class='Account_listItem__35dAP']/button[text()='Выход']")
-    public SelenideElement exitButton;
+    private SelenideElement exitButton;
 
-
+    public void clickExitButton(){
+        exitButton.click();
+    }
+    public void clickBurgerLabel(){
+        burgerLabel.click();
+    }
+    public void clickConstructorButton(){
+        constructorButton.click();
+    }
 
 
 }

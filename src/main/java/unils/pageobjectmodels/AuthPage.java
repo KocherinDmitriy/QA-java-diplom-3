@@ -1,4 +1,5 @@
 package unils.pageobjectmodels;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindAll;
@@ -9,13 +10,25 @@ public class AuthPage {
     public  static final String AUTH_PAGE_URL="https://stellarburgers.nomoreparties.site/login";
 
     @FindBy(how = How.XPATH, using = "//div[contains(@class, 'Auth_login__3hAey')]/h2[text() ='Вход']")
-    public SelenideElement lableEnter;
+    private SelenideElement lableEnter;
 
     //Список полей для регистрации
     @FindAll(@FindBy(how = How.CLASS_NAME,using = "input__textfield"))
-    public ElementsCollection autorizationFields;
+    private ElementsCollection autorizationFields;
 
     @FindBy(how = How.CLASS_NAME, using = "button_button__33qZ0")
-    public SelenideElement enterButtonAuth;
+    private SelenideElement enterButtonAuth;
+
+    public void inputCredentials(Integer num, String credential) {
+        autorizationFields.get(num).setValue(credential);
+    }
+
+    public void clickOnEnterButton() {
+        enterButtonAuth.click();
+    }
+
+    public void visibleLableEnter() {
+        lableEnter.shouldBe(Condition.visible);
+    }
 
 }

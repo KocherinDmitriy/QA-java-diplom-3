@@ -1,9 +1,12 @@
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.junit4.DisplayName;
+import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.interactions.Actions;
 import unils.pageobjectmodels.HomePage;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 
 public class BurgerConstructorTest {
@@ -25,8 +28,9 @@ public class BurgerConstructorTest {
         homePage.сonstructorHeader.get(2).click();
         homePage.сonstructorHeader.get(1).shouldBe(Condition.visible).shouldBe(Condition.text("Соусы")).click();
         homePage.labelListOfConstituting.get(1).shouldBe(Condition.visible).shouldBe(Condition.text("Соусы"));
-
     }
+
+
     @Test
     @DisplayName("Checking the list of buns on the home page")
     public void checkDisplayListOfBuns() {

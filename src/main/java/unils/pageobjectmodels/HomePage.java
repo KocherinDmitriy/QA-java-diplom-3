@@ -19,14 +19,31 @@ public class HomePage extends AuthPage {
     //Войти в аккаунт
     @FindBy(how = How.XPATH, using = "//*[.='Войти в аккаунт']")
     public SelenideElement enterAccount;
+
+    @FindBy(how = How.XPATH, using = "//*[.='ente1rAccount']")
+    public SelenideElement ente1rAccount;
     //Херед конструктора
-    @FindAll(@FindBy(how = How.XPATH, using = "//span[contains(@class, 'text_type_main-default')]"))
+    @FindAll(@FindBy(how = How.XPATH, using = "//div[contains(@class, 'tab_tab__1SPyG')]"))
     public ElementsCollection сonstructorHeader;
     //Наимонование блока в списке состовляющих
     @FindAll(@FindBy(how = How.XPATH, using = "//h2[contains(@class, 'text_type_main-medium')]"))
     public ElementsCollection labelListOfConstituting;
 
+    @FindBy(how = How.CLASS_NAME, using = "BurgerIngredients_ingredients__menuContainer__Xu3Mo")
+    public SelenideElement blockWithIngridients;
+
+    @FindAll(@FindBy(how = How.CLASS_NAME, using = "BurgerIngredient_ingredient__text__yp3dH"))
+    public ElementsCollection burgerIngredientsList;
 
 
+
+
+    public  void clickOnPersonalAreaButton() {
+        personalArea.click();
+    }
+
+    public void clickOnEnterAccount(){
+        enterAccount.click();
+    }
 
 }
