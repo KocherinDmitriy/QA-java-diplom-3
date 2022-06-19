@@ -1,4 +1,3 @@
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.junit4.DisplayName;
@@ -15,13 +14,13 @@ import unils.pageobjectmodels.RegistrationPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.webdriver;
-import static com.codeborne.selenide.WebDriverConditions.*;
+import static com.codeborne.selenide.WebDriverConditions.url;
 
 public class AuthorizationTest {
 
-     String login = String.format("%s@gmail.com", RandomStringUtils.randomAlphabetic(10));
-     String password = RandomStringUtils.randomAlphabetic(10);
-     String name = RandomStringUtils.randomAlphabetic(10);
+    String login = String.format("%s@gmail.com", RandomStringUtils.randomAlphabetic(10));
+    String password = RandomStringUtils.randomAlphabetic(10);
+    String name = RandomStringUtils.randomAlphabetic(10);
 
     @Before
     public void startTest() {
@@ -39,7 +38,7 @@ public class AuthorizationTest {
         homePage.inputCredentials(0, login);
         homePage.inputCredentials(1, password);
         homePage.clickOnEnterButton();
-        homePage.lableBurger.shouldBe(Condition.visible);
+        Assert.assertTrue(homePage.lableBurgerIsVisible());
         Assert.assertEquals(HomePage.HOME_PAGE_URL, webdriver().driver().getCurrentFrameUrl());
 
 
@@ -77,10 +76,10 @@ public class AuthorizationTest {
         HomePage homePage = open(HomePage.HOME_PAGE_URL, HomePage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
         homePage.clickOnEnterAccount();
-        homePage.inputCredentials(1, login);
+        homePage.inputCredentials(0, login);
         homePage.inputCredentials(1, password);
         homePage.clickOnEnterButton();
-        homePage.lableBurger.shouldBe(Condition.visible);
+        Assert.assertTrue(homePage.lableBurgerIsVisible());
         Assert.assertEquals(HomePage.HOME_PAGE_URL, webdriver().driver().getCurrentFrameUrl());
 
 

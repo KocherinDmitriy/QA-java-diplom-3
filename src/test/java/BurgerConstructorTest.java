@@ -1,9 +1,7 @@
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.junit4.DisplayName;
-
+import org.junit.Assert;
 import org.junit.Test;
-
 import unils.pageobjectmodels.HomePage;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -15,8 +13,12 @@ public class BurgerConstructorTest {
     public void checkDisplayListOfFillings() {
         HomePage homePage = open(HomePage.HOME_PAGE_URL, HomePage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        homePage.сonstructorHeader.get(2).shouldBe(Condition.visible).shouldBe(Condition.text("Начинки")).click();
-        homePage.labelListOfConstituting.get(2).shouldBe(Condition.visible).shouldBe(Condition.text("Начинки"));
+        Assert.assertTrue(homePage.isBunPressed());//Проверяем что прожаты "булки", где находимся
+        homePage.clickOnConstructorHeader(2);
+        Assert.assertTrue(homePage.isFillingsPressed());
+        Assert.assertFalse(homePage.isBunPressed());
+        Assert.assertFalse(homePage.isSaucesPressed());
+        Assert.assertEquals(homePage.getTextOnConstructorHeader(2), "Начинки");
 
     }
 
@@ -25,9 +27,13 @@ public class BurgerConstructorTest {
     public void checkDisplayListOfSauces() {
         HomePage homePage = open(HomePage.HOME_PAGE_URL, HomePage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        homePage.сonstructorHeader.get(2).click();
-        homePage.сonstructorHeader.get(1).shouldBe(Condition.visible).shouldBe(Condition.text("Соусы")).click();
-        homePage.labelListOfConstituting.get(1).shouldBe(Condition.visible).shouldBe(Condition.text("Соусы"));
+        Assert.assertTrue(homePage.isBunPressed());//Проверяем что прожаты "булки", где находимся
+        homePage.clickOnConstructorHeader(1);
+        Assert.assertTrue(homePage.isSaucesPressed());
+        Assert.assertFalse(homePage.isFillingsPressed());
+        Assert.assertFalse(homePage.isBunPressed());
+        Assert.assertEquals(homePage.getTextOnConstructorHeader(1), "Соусы");
+
     }
 
 
@@ -36,9 +42,12 @@ public class BurgerConstructorTest {
     public void checkDisplayListOfBuns() {
         HomePage homePage = open(HomePage.HOME_PAGE_URL, HomePage.class);
         WebDriverRunner.getWebDriver().manage().window().maximize();
-        homePage.сonstructorHeader.get(2).click();
-        homePage.сonstructorHeader.get(0).shouldBe(Condition.visible).shouldBe(Condition.text("Булки")).click();
-        homePage.labelListOfConstituting.get(0).shouldBe(Condition.visible).shouldBe(Condition.text("Булки"));
-
+        Assert.assertTrue(homePage.isBunPressed());//Проверяем что прожаты "булки", где находимся
+        homePage.clickOnConstructorHeader(2);//Переключились на начинки
+        homePage.clickOnConstructorHeader(0);//Вернулись к булкам
+        Assert.assertTrue(homePage.isBunPressed());
+        Assert.assertFalse(homePage.isSaucesPressed());
+        Assert.assertFalse(homePage.isFillingsPressed());
+        Assert.assertEquals(homePage.getTextOnConstructorHeader(0), "Булки");
     }
 }
