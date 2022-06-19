@@ -1,12 +1,12 @@
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.junit4.DisplayName;
-import org.junit.Assert;
+
 import org.junit.Test;
-import org.openqa.selenium.interactions.Actions;
+
 import unils.pageobjectmodels.HomePage;
+
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 
 public class BurgerConstructorTest {

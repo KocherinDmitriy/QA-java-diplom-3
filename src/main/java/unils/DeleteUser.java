@@ -1,4 +1,5 @@
 package unils;
+
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -9,19 +10,14 @@ import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 
-public class DeleteUser {
+public class DeleteUser extends BaseSpec {
+    public DeleteUser() {
+    }
 
-    private static final RequestSpecification REQ_SPEC=
-            new RequestSpecBuilder()
-                    .setBaseUri("https://stellarburgers.nomoreparties.site")
-                    .setContentType(ContentType.JSON)
-                    .build();
-
-
-    public static void sendDeleteRequestUser() {
+    public void sendDeleteRequestUser(String email, String password) {
         given()
                 .spec(REQ_SPEC)
-                .and().auth().oauth2(getAuthToken())
+                .and().auth().oauth2(getAuthToken(email, password))
                 .and()
                 .body("")
                 .when()
@@ -29,7 +25,7 @@ public class DeleteUser {
 
     }
 
-    public static HashMap getBodyAuthUserRequest(String email, String password) {
+    private HashMap getBodyAuthUserRequest(String email, String password) {
         HashMap<String, Object> dataBody = new HashMap<String, Object>();
         dataBody.put("email", email);
         dataBody.put("password", password);
@@ -37,16 +33,16 @@ public class DeleteUser {
         return dataBody;
     }
 
-    private static String getAuthToken() {
+    private String getAuthToken(String email, String password) {
         Response response =
                 given()
-                .spec(REQ_SPEC)
-                .and()
-                .body(getBodyAuthUserRequest(CreateUser.getLogin(),CreateUser.getPassword()))
-                .when()
-                .post("/api/auth/login");
+                        .spec(REQ_SPEC)
+                        .and()
+                        .body(getBodyAuthUserRequest(email, password))
+                        .when()
+                        .post("/api/auth/login");
 
         CreateUserResponse createUserResponse = response.body().as(CreateUserResponse.class);
         return createUserResponse.getAccessToken();
-}
+    }
 }

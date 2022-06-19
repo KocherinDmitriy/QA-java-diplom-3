@@ -1,25 +1,17 @@
 package unils;
 
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import unils.pojo.CreateUserResponse;
 
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 
-public class DeleteUserCreatedViaUI {
+public class DeleteUserCreatedViaUI extends BaseSpec {
+    public DeleteUserCreatedViaUI() {
+    }
 
-
-    private static final RequestSpecification REQ_SPEC=
-            new RequestSpecBuilder()
-                    .setBaseUri("https://stellarburgers.nomoreparties.site")
-                    .setContentType(ContentType.JSON)
-                    .build();
-
-    public static HashMap getBodyAuthUserRequest(String login, String password) {
+    private HashMap getBodyAuthUserRequest(String login, String password) {
         HashMap<String, Object> dataBody = new HashMap<String, Object>();
         dataBody.put("email", login);
         dataBody.put("password", password);
@@ -27,10 +19,10 @@ public class DeleteUserCreatedViaUI {
         return dataBody;
     }
 
-    public static void sendDeleteRequestUserFromUI(String login, String password) throws NullPointerException {
-        String oauthToken=getAuthToken(login,password);
-        if (oauthToken==null){
-        }else {
+    public void sendDeleteRequestUserFromUI(String login, String password) throws NullPointerException {
+        String oauthToken = getAuthToken(login, password);
+        if (oauthToken == null) {
+        } else {
             given()
                     .spec(REQ_SPEC)
                     .and().auth().oauth2(oauthToken)
@@ -41,15 +33,15 @@ public class DeleteUserCreatedViaUI {
         }
     }
 
-    private static String getAuthToken(String login,String password) {
-        if (password.length()<6){
+    private String getAuthToken(String login, String password) {
+        if (password.length() < 6) {
             return null;
-        }else {
+        } else {
             Response response =
                     given()
                             .spec(REQ_SPEC)
                             .and()
-                            .body(getBodyAuthUserRequest(login,password))
+                            .body(getBodyAuthUserRequest(login, password))
                             .when()
                             .post("/api/auth/login");
 

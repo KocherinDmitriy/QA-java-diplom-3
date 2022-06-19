@@ -1,4 +1,3 @@
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Description;
@@ -30,7 +29,7 @@ public class RegistrationTest {
         registrationPage.inputCredentialsRegistration(1, email);
         registrationPage.inputCredentialsRegistration(2, password);
         registrationPage.clickOnButtonRegistration();
-        Assert.assertEquals(registrationPage.getTextErrorMessage(),"Некорректный пароль");
+        Assert.assertEquals(registrationPage.getTextErrorMessage(), "Некорректный пароль");
     }
 
     @Test
@@ -59,7 +58,7 @@ public class RegistrationTest {
     public void teardown() {
         Selenide.closeWindow();
         Selenide.closeWebDriver();
-        DeleteUserCreatedViaUI.sendDeleteRequestUserFromUI(email, password);
+        new DeleteUserCreatedViaUI().sendDeleteRequestUserFromUI(email, password);
 
     }
 }
