@@ -13,6 +13,10 @@ import static io.restassured.RestAssured.given;
 
 public class CreateUser {
 
+    static String login = String.format("%s@gmail.com", RandomStringUtils.randomAlphabetic(10));
+    static String password = RandomStringUtils.randomAlphabetic(10);
+    static String name = RandomStringUtils.randomAlphabetic(10);
+
     public static HashMap getBodyCreateUserRequest(String email, String password, String name) {
         HashMap<String, Object> dataBody = new HashMap<String, Object>();
         dataBody.put("email", getLogin());
@@ -41,9 +45,7 @@ public class CreateUser {
 
     }
 
-    static String login = String.format("%s@gmail.com", RandomStringUtils.randomAlphabetic(10));
-    static String password = RandomStringUtils.randomAlphabetic(10);
-    static String name = RandomStringUtils.randomAlphabetic(10);
+
 
     public static String getLogin() {
         return login;
