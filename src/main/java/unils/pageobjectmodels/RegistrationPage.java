@@ -21,14 +21,14 @@ public class RegistrationPage extends AuthPage {
     @FindBy(how = How.CLASS_NAME, using = "input__error")
     private SelenideElement errorMessage;
 
-    //Сообщение об ошибке
+    //Кнопка "войти" на экране регистрации
     @FindBy(how = How.CLASS_NAME, using = "Auth_link__1fOlj")
     private SelenideElement enterButtonRegistration;
 
-    //Личный кабинет
+    //Кнопка "Личный кабинет"
     @FindBy(how = How.XPATH, using = "//*[.='Личный Кабинет']")
     private SelenideElement personalArea;
-    //Личный кабинет
+    //Поля логина и пароля
     @FindAll(@FindBy(how = How.XPATH, using = "//div[contains(@class, 'input__container')]//input[contains(@class, 'input__textfield')]"))
     private ElementsCollection nameAndEmail;
 
